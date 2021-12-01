@@ -2,6 +2,8 @@ kind: Pod                                          # We're creating a Pod here
 apiVersion: v1                                     # Version of the API object
 metadata:                                          # metadata uniquely identifies the pod
   name: k8s-for-beginners
+  labels:
+    tier: frontend
 spec:                                              # describes the pod
   containers:
   - name: k8s-for-beginners
