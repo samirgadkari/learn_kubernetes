@@ -1,0 +1,9 @@
+kind: Pod                                          # We're creating a Pod here
+apiVersion: v1                                     # Version of the API object
+metadata:                                          # metadata uniquely identifies the pod
+  name: k8s-for-beginners
+spec:                                              # describes the pod
+  containers:
+  - name: k8s-for-beginners
+    image: samirgadkari/k8s-for-beginners:v0.0.1  # Be sure to provide version, if it is not the
+                                                  # :latest
