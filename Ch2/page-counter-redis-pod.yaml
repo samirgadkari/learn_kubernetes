@@ -1,0 +1,11 @@
+kind: Pod                                          # We're creating a Pod here
+apiVersion: v1                                     # Version of the API object
+metadata:                                          # metadata uniquely identifies the pod
+  name: db
+  labels:
+    tier: db
+spec:                                              # describes the pod
+  containers:
+  - name: db
+    image: redis:latest                           # Be sure to provide version, if it is not the
+                                                  # :latest

@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis
+spec:
+  selector:                 # Defines the labels to be selected to specify a relationship
+    tier: db                # with a pod.
+  type: NodePort            # Expose a port in each node of the cluster
+  ports:
+    - port: 6379            # Associate <service IP>:<port> with 
+      targetPort: 6379        # <pod IP>:<port>
+

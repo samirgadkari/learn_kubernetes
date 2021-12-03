@@ -1,0 +1,18 @@
+kind: Deployment
+apiVersion: apps/v1         # apps group, version 1
+metadata:
+  name: page-counter
+spec:
+  replicas: 3               # Create 3 pods
+  selector:
+    matchLabels:
+      tier: frontend        # Match the deploy label with the pod label
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - name: page-counter
+        image: samirgadkari/page-counter:v0.0.1
+
