@@ -4,7 +4,9 @@
 #    Issue this command before using this script:
 #      kubectl delete deploy page-counter && kubectl delete service page-counter
 #    Then, run this command with this script
-#    minikube ssh 'bash -s' < this_script_file
+#      minikube ssh 'bash -s' < this_script_file
+#    After everything is done, run the command
+#      minikube stop
 
 minikube ssh
 sudo systemctl stop kubelet
@@ -14,4 +16,3 @@ echo 'check that all containers are removed'; docker ps -a
 echo 'removing all images'; docker rmi $(docker images | awk '{print $3}')
 echo 'check that all images are removed'; docker images
 exit
-minikube stop
