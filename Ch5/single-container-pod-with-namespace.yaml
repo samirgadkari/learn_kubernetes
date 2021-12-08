@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: first-pod-with-namespace
+  namespace: kube-public
+spec:
+  containers:
+    - name: my-first-container
+      image: nginx
+
+# Create this pod with the command
+#   kubectl create -f this_manifest_filename
+# Check that the pod is created
+#   kubectl --namespace kube-public get pods
