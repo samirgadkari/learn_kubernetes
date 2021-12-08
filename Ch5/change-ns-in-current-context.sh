@@ -1,3 +1,11 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+	printf "Usage:\n"
+	printf "  change-ns-in-current-context.sh new-namespace-name\n"
+	exit 1
+fi
+
 printf "Current namespaces:\n"
 kubectl get namespaces
 printf "\n"
