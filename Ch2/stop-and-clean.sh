@@ -8,7 +8,6 @@
 #    After everything is done, run the command
 #      minikube stop
 
-minikube ssh
 sudo systemctl stop kubelet
 echo 'stopping all containers'; docker stop $(docker ps -aq)
 echo 'removing all containers'; docker rm $(docker ps -aq)
