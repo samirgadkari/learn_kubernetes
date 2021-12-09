@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: activity-5-01
+  namespace: activity
+spec:
+  restartPolicy: OnFailure
+  containers:
+    - name: activity-5-01
+      image: ubuntu
+      command:
+        - /bin/bash
+        - -ec
+        - sleep 20; touch /tmp/live; sleep 600
+      livenessProbe:
+        exec:
+          command:
+            - cat
+            - /tmp/live
+        initialDelaySeconds: 20  # Starting immediately allows us to send requests to this
+                                 # container earlier. But, we should not try before we think
+                                 # the image should be ready
+        periodSeconds: 5         # Check for liveness by sending the command every 5 seconds.
