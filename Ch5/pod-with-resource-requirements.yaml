@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: resource-requirements-pod
+spec:
+  containers:
+    - name: container-with-resource-requirements
+      image: nginx
+      resources:
+        limits:           # limits = maximum resource allocation allowed.
+                          # If a process tries to allocate more memory than the limit,
+                          # it will be killed with OOMKilled status.
+                          # If you don't specify limits, a process can take up any
+                          # amount of memory.
+          memory: "128M"
+          cpu: "1"        # 1 cpu = 1 logical CPU
+        requests:         # requests = minimum resources required for pod to be ready.
+                          # A pod will only be scheduled on a node that satisfies
+                          # the requests section.
+          memory: "64M"
+          cpu: "0.5"      # 0.5 cpu can also be written as "500m" for 500 milli-cpus.
