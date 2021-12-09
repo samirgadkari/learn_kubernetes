@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: port-exposed-pod
+spec:
+  containers:
+    - name: container-with-exposed-port
+      image: nginx
+      ports:
+        - containerPort: 80
+
+# Run with:
+#   kubectl create -f pod-with-exposed-port.yaml
+# Check with:
+#   sudo kubectl port-forward pod/port-exposed-pod 80 # forward port 80 from localhost to pod.
+#   curl http://127.0.0.1                             # curl to see if it's working.
+#                                                     # You should see "Welcome to nginx".
+#   kubectl logs port-exposed-pod                     # See if logs show the HTTP GET command.
