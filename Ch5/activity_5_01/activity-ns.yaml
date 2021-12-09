@@ -1,0 +1,10 @@
+# This yaml file was generated using the command:
+#   kubectl create namespace activity --dry-run -o yaml > activity-ns.yaml
+#
+apiVersion: v1
+kind: Namespace
+metadata:
+  creationTimestamp: null
+  name: activity
+spec: {}
+status: {}
