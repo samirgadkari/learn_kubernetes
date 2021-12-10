@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: infra-libraries-application-staging
+  namespace: activity-6-01
+  labels:
+    owner: infra-libraries-application
+  annotations:
+    team-link: "http://infra-libraries-application-team"
+spec:
+  containers:
+    - name: infra-libraries-application-staging
+      image: nginx
+
