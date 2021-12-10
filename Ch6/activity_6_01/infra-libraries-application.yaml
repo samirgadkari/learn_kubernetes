@@ -5,9 +5,10 @@ metadata:
   namespace: activity-6-01
   labels:
     owner: infra-libraries
+    environment: production
+    priorityClassName: system-node-critical
   annotations:
     team-link: "http://infra-libraries-team"
-    critical: "true"
 spec:
   containers:
     - name: infra-libraries-application

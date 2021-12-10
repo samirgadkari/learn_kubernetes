@@ -5,6 +5,7 @@ metadata:
   namespace: activity-6-01
   labels:
     owner: infra-libraries-application
+    environment: staging
   annotations:
     team-link: "http://infra-libraries-application-team"
 spec:

@@ -5,9 +5,10 @@ metadata:
   namespace: activity-6-01
   labels:
     owner: product-development
+    priorityClassName: system-node-critical
+    environment: production
   annotations:
     team-link: "http://product-dev-team"
-    critical: "false"
 spec:
   containers:
     - name: arbitrary-production-application
