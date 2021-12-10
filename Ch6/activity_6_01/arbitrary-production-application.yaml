@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: arbitrary-production-application
+  namespace: activity-6-01
+  labels:
+    owner: product-development
+  annotations:
+    team-link: "http://product-dev-team"
+    critical: "true"
+spec:
+  containers:
+    - name: arbitrary-production-application
+      image: nginx
+
