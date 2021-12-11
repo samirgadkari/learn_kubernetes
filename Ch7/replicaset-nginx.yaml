@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replicaset
+  labels:
+    app: nginx
+spec:
+  replicas: 2                       # default = 1
+  selector:                         # Existing pods with the given labels will be brought into
+                                    # this replicaset to be managed. If more than 2 such pods 
+                                    # exist, some will be terminated, so that there are only 
+                                    # 2 left.
+                                    # If the number of pods are less than 2, more will be
+                                    # created using the below pod template.
+    matchLabels:
+      environment: production
+  template:                         # pod template
+    metadata:
+      labels:
+        environment: production
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
