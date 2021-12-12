@@ -42,4 +42,12 @@ spec:
 # kubectl describe deploy nginx-deployment
 # kubectl describe rs nginx-deployment-588765684f # To look at the replicaset in the deployment,
 #                                                 # you need to use the deployment number.
+#                                                 # You can see that in the output, under Labels,
+#                                                 # an extra line for revision has been added.
+#                                                 # This lets you track the revision number of the
+#                                                 # current deployment.
+#                                                 # In the Pod Template > Labels section, and extra
+#                                                 # line is added for pod-template-hash.
+#                                                 # This includes the hash created for this deployment.
+#                                                 # This is prefixed to the pod names.
 
