@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    environment: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+      environment: production
+  template:
+    metadata:
+      labels:
+        app: nginx
+        environment: production
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+
+# This file initially had container name as nginx-container
+# kubectl apply -f app-deployment.yaml
+# kubectl rollout history deployment app-deployment  # to see list of revisions
+# Now change the container name from nginx-container to nginx
+# kubectl apply -f app-deployment.yaml --record      # --record to record revisions
+# kubectl rollout history deployment app-deployment  # to see the updated revisions
+# kubectl set image deployment app-deployment nginx=ngnx --record  # update using set image command
+# kubectl rollout status deployment app-deployment   # We can see that rollout is not finished.
+# kubectl get pods                                   # One pod has Status "ImagePullBackOff".
+#                                                    # So it cannot get ngnx image from docker,
+#                                                    # because it doesn't exist.
+# kubectl rollout history deployment app-deployment  # to see the updated revisions. We see set image.
+# kubectl rollout undo deployment app-deployment     # To undo the last change. You can use
+#                                                    # --to-revision flag in this command to
+#                                                    # get to the revision you want.
+# kubectl rollout history deployment app-deployment  # To see that the undo was successful.
+#                                                    # Note that this revision is now 4, not 2.
+#                                                    # Revisions always increase, even on undo.
