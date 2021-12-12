@@ -48,6 +48,8 @@ spec:
 #                                                 # current deployment.
 #                                                 # In the Pod Template > Labels section, and extra
 #                                                 # line is added for pod-template-hash.
-#                                                 # This includes the hash created for this deployment.
-#                                                 # This is prefixed to the pod names.
+#                                                 # This includes the deployment name followed by
+#                                                 # the hash created for this deployment.
+#                                                 # This string is used as a prefix for the
+#                                                 # pod names. The suffix is another shorter hash.
 
