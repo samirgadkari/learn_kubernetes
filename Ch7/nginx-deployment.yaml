@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate         # strategy type can be RollingUpdate or Recreate.
+                                # With a RollingUpdate strategy there may be multiple versions
+                                # of your software running at the same time. As long as the
+                                # older version can read data stored by the newer version,
+                                # this should be fine. It's also fine if your app is stateless.
+                                #
+                                # The Recreate strategy kills the existing pods before creating
+                                # new pods (with the new image version). This is useful when the
+                                # application has saved state, but you cannot guarantee that the
+                                # state stored by the older version can be read by the newer
+                                # version.
+    rollingUpdate:
+      maxUnavailable: 1         # Max num of pods unavailable during update.
+      maxSurge: 1               # Number of pods beyond the required number in the replicaset to surge
+  selector:
+    matchLabels:
+      app: nginx
+      environment: production
+  template:
+    metadata:
+      labels:
+        app: nginx
+        environment: production
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+
+# kubectl  create -f nginx-deployment.yaml   # create the deployment in this file
+# kubectl get deploy nginx-deployment        # check the deployment
+# kubectl get pods                           # check the pods in the deployment. The name of the pods
+#                                            # are 'deployment number - pods number'.
+# kubectl describe deploy nginx-deployment
+# kubectl describe rs nginx-deployment-588765684f # To look at the replicaset in the deployment,
+#                                                 # you need to use the deployment number.
+
