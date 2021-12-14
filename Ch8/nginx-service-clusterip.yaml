@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service-clusterip
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: nginx
+    environment: production
+
+
+# kubectl create -f nginx-deployment.yaml
+# kubectl create -f nginx-service-clusterip.yaml
+# kubectl get service
+# kubectl describe service nginx-service-clusterip
+# kubectl get pods -o custom-columns=IP:status.podIP
+# minikube ssh
+# curl 10.100.123.26             # or whatever clusterIP address you find from the service
+# exit
+# kubectl delete deploy nginx-deployment
+# kubectl delete service nginx-service-clusterip
+
