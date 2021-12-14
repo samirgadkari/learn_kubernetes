@@ -7,12 +7,16 @@ spec:
   ports:
     - port: 80
       targetPort: 80
+  clusterIP: 10.96.10.70   # If you don't specify the clusterIP, one will be assigned.
+                           # If you specify an IP in a different subnet, you get an error.
   selector:
     app: nginx
     environment: production
 
 
 # kubectl create -f nginx-deployment.yaml
+# kubectl cluster-info dump | grep -m 1 service-cluster-ip-range  # Valid Cluster IP range to use.
+#                                                                 # Use it in this file for clusterIP.
 # kubectl create -f nginx-service-clusterip.yaml
 # kubectl get service
 # kubectl describe service nginx-service-clusterip
