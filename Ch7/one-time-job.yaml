@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: one-time-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        args:
+        - /bin/sh
+        - -c
+        - date; sleep 20; echo "Bye"
+      restartPolicy: OnFailure
+
+# kubectl apply -f one-time-job.yaml
+# kubectl get jobs                    # See that the job has started, and completions 0/1.
+# kubectl get pods                    # See that the job pod is running.
+# kubectl logs -f one-time-job-b28sj  # After 20 seconds, logs show "Bye"
+# kubectl get job one-time-job        #   and job shows completions 1/1
+# kubectl get pods                    #   and pods show status Completed.
+# kubectl delete job one-time-job
+
