@@ -3,19 +3,24 @@ kind: Deployment
 metadata:
   name: frontend-deployment
 spec:
+  replicas: 5
   strategy:
     type: Recreate
   selector:
-    app: httpd
-    environment: production
+    matchLabels:
+      app: frontend
+      environment: production
   template:
     metadata:
-      app: httpd
-      environment: production
+      labels:
+        app: frontend
+        environment: production
     spec:
       containers:
-        - name: httpd-container
+        - name: frontend-container 
           image: httpd
           env:
-            - ClusterIP:
-              port: 
+          - name: BACKEND_IP
+            value: "10.96.10.10"
+          - name: BACKEND_PORT
+            value: "80" 
