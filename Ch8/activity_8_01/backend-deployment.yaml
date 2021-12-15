@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+    environment: production
+spec:
+  replicas: 4
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: backend
+      environment: production
+  template:
+    metadata:
+      labels:
+        app: backend
+        environment: production
+    spec:
+      containers:
+        - name: backend-container
+          image: nginx
+          env:
+          - name: BACKEND_IP
+            value: "10.96.10.10"
+          - name: BACKEND_PORT
+            value: "80" 

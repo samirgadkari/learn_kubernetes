@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    app: httpd
+    environment: production
+  template:
+    metadata:
+      app: httpd
+      environment: production
+    spec:
+      containers:
+        - name: httpd-container
+          image: httpd
+          env:
+            - ClusterIP:
+              port: 
