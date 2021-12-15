@@ -22,8 +22,3 @@ spec:
       containers:
         - name: backend-container
           image: nginx
-          env:
-          - name: BACKEND_IP
-            value: "10.96.10.10"
-          - name: BACKEND_PORT
-            value: "80" 
