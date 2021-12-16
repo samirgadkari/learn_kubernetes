@@ -33,10 +33,9 @@ spec:
                                         # Various cloud environments have different policies
                                         # for the reclaim policy.
   hostPath:
-    path: /mnt/data
-  # nfs:                   # If our volume was on a NFS server, we would have this
-    # server: 172.10.1.1   # section.
-    # path: /tmp/pv
+    path: /mnt/data         # nfs:                   # If our volume was on a NFS server, we would
+                            #   server: 172.10.1.1   # have this section, instead of hostPath
+                            #   path: /tmp/pv
 
 # First create the PV manually:
 #   minikube ssh
