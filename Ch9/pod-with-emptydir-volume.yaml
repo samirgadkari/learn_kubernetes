@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-emptydir-volume
+spec:
+  containers:
+    - image: nginx
+      name: nginx-container
+      volumeMounts:                 # Each container specifies it's own volume mounts.
+                                    # By default, volume mounts are mounted from the root dir.
+                                    # But you can use the subPath to specify mounting a
+                                    # subdirectory of the volume.
+                                    # By default volumes are mounted read-write. You can
+                                    # specify readonly: true to mount volumes readonly.
+        - mountPath: /mounted-data  # In this case, the container app uses the volume as
+                                    # mounted-data dir.
+          name: data-volume         # Name of the volume from the volumes section in this pod spec.
+  volumes:                          # defines the volumes used by this pod.
+    - name: data-volume             # Volume names must be unique within the pod.
+      emptyDir: {}                  # Presents app with an empty directory. {} means default values.
+                                    # By default data is stored to disk. To change this to use
+                                    # tmpfs (fast RAM-based filesystem), use 
+                                    #   emptyDir:
+                                    #     medium: Memory
+                                    # Issues:
+                                    #   - tmpfs data is cleared on node reboot.
+                                    #   - data stored in tmpfs counts against memory limits
+                                    #     of the container.
+                                    #   emptyDir:
+                                    #     sizeLimit: 512MiB
+                                    # This sizeLimit applies to both disk and memory based
+                                    # emptyDir volumes. For memory based volumes, the memory
+                                    # limit is the lower of:
+                                    #   - sizeLimit
+                                    #   - sum of memory limits on all containers in the pod
+                                    #
+                                    # emptyDir volume exists only as long as the pod does.
+                                    # It is usually used for recording partial status of long 
+                                    # calculations. 
+
+# kubectl create -f pod-with-emptydir-volume.yaml
+# kubectl get pods
+# kubectl describe pod pod-with-emptydir-volume
+# kubectl exec pod-with-emptydir-volume -it /bin/bash  # This will allow you to run commands via
+#                                                      # an SSH connection on the bash shell
+#                                                      # running in the container.
+#                                                      # If you have multiple containers running
+#                                                      # on the pod, use the -c containerName
+#                                                      # to specify on which container the bash
+#                                                      # shell should be created.
+# cd mounted-data
+# echo "Manually stored data" > manual-data.txt
+# apt update                                           # update the package lists
+# apt-get install procps                               # install procps package.
+#                                                      # We need this to issue ps command.
+# ps aux                                               # To see list of processes.
+# kill 1                                               # Kills root process. You're kicked
+#                                                      # out of the shell.
+# kubectl describe pod pod-with-emptydir-volume        # Shows Restart Count: 1
+# kubectl exec pod-with-emptydir-volume -it /bin/bash
+# cd mounted-data
+# cat manual-data.txt                                  # Data still there. This is because our
+#                                                      # data-volume is pod-based, not container-based.
+# exit                                                 # Exit out of nginx.
+# kubectl delete pod pod-with-emptydir-volume
+
