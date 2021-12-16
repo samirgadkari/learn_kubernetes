@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shared-emptydir-volume
+spec:
+  containers:
+    - image: ubuntu
+      name: container-1
+      command: ['/bin/bash', '-ec', 'sleep 3600']
+      volumeMounts:
+        - mountPath: /mounted-data-1
+          name: data-volume
+    - image: ubuntu
+      name: container-2
+      command: ['/bin/bash', '-ec', 'sleep 3600']
+      volumeMounts:
+        - mountPath: /mounted-data-2
+          name: data-volume
+    - image: ubuntu
+      name: container-3
+      command: ['/bin/bash', '-ec', 'sleep 3600']
+      volumeMounts:
+        - mountPath: /mounted-data-3
+          name: data-volume
+  volumes:
+    - name: data-volume
+      emptyDir: {}
+
+# kubectl create -f shared-emptydir-volume.yaml
+# kubectl get pod shared-emptydir-volume
+# kubectl exec shared-emptydir-volume -c container-1 -it /bin/bash
+# ls
+# cd mounted-data-1
+# echo 'Data written on container-1' > data-1.txt
+# ls
+# cat data-1.txt
+# exit
+# kubectl exec shared-emptydir-volume -c container-2 -it /bin/bash
+# ls
+# cd mounted-data-1
+# cat data-1.txt     # Data from container-1 visible on container-2
+# cd ../mounted-data-2
+# echo 'Data written on container-2' > data-2.txt
+# ls
+# cat data-2.txt
+# ... etc. We can see that data written from each container is available on
+# the other containers.
+# kubectl delete pod shared-emptydir-volume
+
