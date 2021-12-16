@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: PersistentVolume  # PV can have one of these status:
+                        # Available: Available to be claimed
+                        # Bound: Bound to a PVC
+                        # Released: PVC bound to this PV has been deleted.
+                        #           PV yet to be reclaimed by another PVC.
+                        # Failed: Failure during reclamation.
+metadata:
+  name: pv-hostpath
+spec:
+  storageClassName: local-pv # Cluster admins create storage classes with performance/capacity
+                             # requirements provided by the app creators.
+                             # Each storage class can have it's provisioners, backup policies,
+                             # reclamation policies.
+  capacity: 
+    storage: 500Mi
+  # volumeMode: Filesystem   # We can also use Block, for block device storage
+  accessModes:
+    - ReadWriteOnce          # ReadWriteOnce (RWO): Mounted as RW by a single node only
+                             # ReadOnlyMany (ROX): Mounted as R by many nodes
+                             # ReadWriteMany (RWX): Mounted as RW by many nodes
+                             # Not all types of volumes support all access modes. Check to be sure.
+  # persistentVolumeReclaimPolicy: Retain # Once an app is done with a PV, they can delete the PVC.
+                                        # Then the PV is available to be reclaimed by other PVC.
+                                        # This is called a Released PV.
+                                        # Retain: Data remains, PV cannot be reclaimed.
+                                        #         Admin has to delete data manually.
+                                        #         PV is marked as Released.
+                                        # Recycle: Data deleted automatically using rm -rf
+                                        #          PV is marked as Available.
+                                        #          Dynamic provisioning is better than this.
+                                        # Delete:  Released PV will be deleted along with it's data.
+                                        # Various cloud environments have different policies
+                                        # for the reclaim policy.
+  hostPath:
+    path: /mnt/data
+  # nfs:                   # If our volume was on a NFS server, we would have this
+    # server: 172.10.1.1   # section.
+    # path: /tmp/pv
+
+# First create the PV manually:
+#   minikube ssh
+#   sudo mkdir /mnt/data
+#   sudo bash -ec 'echo "Data written on host node" > /mnt/data/data.txt'
+#   exit
+#
