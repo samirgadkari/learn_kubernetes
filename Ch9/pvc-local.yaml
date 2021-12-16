@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-local
+spec:
+  storageClassName: local-pv  # Only PVs with this same storageClassName can be bound
+                              # to this PVC.
+                              # If the cluster default storage class is:
+                              #   - set: PVCs with no storage class set will bind to that
+                              #          default value.
+                              #   - not set: PVCs with no storage class set will bind to PVs
+                              #              with no storage class set.
+  # volumeMode: Filesystem    # Only PVs with this volume mode can be bound to this PVC.
+  accessModes:
+    - ReadWriteOnce           # Only PVs with this access mode can be bound to this PVC.
+  # selector:
+  #   matchLabels:
+  #     environment: "prod"     # Only the PVs whose labels satisfy the selectors 
+                                # can be bound to this PVC
+  resources: 
+    requests:                 # Only PVs satisfying this resources request can be bound
+                              # to this PVC.
+      storage: 100Mi
+
+# To use a PVC, we have to:
+#   - provision the volume. We can provision the volume like this:
+#     - static: Cluster admin has to provision several PVs beforehand
+#     - dynamic: Cluster will dynamically provision the PVs as required by the PVCs.
+#   - bind it to a PVC
+#     Create a PVC. Whenever a new PVC is created, Kubernetes controller will search for
+#     and bind a PV to it. Each PV can only be bound to one PVC.
+#   - use the claim as a volume on a pod
+#     When a pod uses a PVC as a volume, Kubernetes will mount the PV for that PVC for that pod.
+#
+# 
