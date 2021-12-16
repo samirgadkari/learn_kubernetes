@@ -56,7 +56,9 @@ spec:
 # ps aux                                               # To see list of processes.
 # kill 1                                               # Kills root process. You're kicked
 #                                                      # out of the shell.
-# kubectl describe pod pod-with-emptydir-volume        # Shows Restart Count: 1
+# kubectl describe pod pod-with-emptydir-volume        # Shows Restart Count: 1.
+#                                                      # Restarting a pod does not
+#                                                      # restart the container it's in.
 # kubectl exec pod-with-emptydir-volume -it /bin/bash
 # cd mounted-data
 # cat manual-data.txt                                  # Data still there. This is because our
