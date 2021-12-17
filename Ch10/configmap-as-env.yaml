@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-env-pod
+spec:
+  containers:
+    - name: configmap-container
+      image: k8s.gcr.io/busybox
+      command: ['/bin/sh', '-c', 'env']  # print all env variables available to the pod
+                                         # To change the name, instead of envFrom, use env:
+      envFrom:                           # env:
+        - configMapRef:                  #   - name: partner-server-location
+            name: singlevalue-map        #     valueFrom:
+                                         #       configMapKeyRef:
+                                         #         name: singlevalue-map
+                                         #         key: partner-url
+
+# kubectl --namespace configmap-test create configmap singlevalue-map --from-literal=partner-url=https://www.auppost.com.au
+# kubectl --namespace configmap-test create -f configmap-as-env.yaml
+# kubectl --namespace configmap-test logs -f configmap-env-pod   # This shows all env values
+#                                                                # available to the pod.
