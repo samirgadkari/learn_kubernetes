@@ -24,7 +24,11 @@ spec:
 
 # To use a PVC, we have to:
 #   - provision the volume. We can provision the volume like this:
-#     - static: Cluster admin has to provision several PVs beforehand
+#     - static: Cluster admin has to provision several PVs beforehand.
+#       First we will create a volume directory on the node.
+#         minikube ssh
+#         sudo mkdir /mnt/data
+#         sudo bash -ec 'echo "Data written on host node" > /mnt/data/data.txt'
 #     - dynamic: Cluster will dynamically provision the PVs as required by the PVCs.
 #   - bind it to a PVC
 #     Create a PVC. Whenever a new PVC is created, Kubernetes controller will search for
