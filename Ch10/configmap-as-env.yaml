@@ -9,11 +9,11 @@ spec:
       command: ['/bin/sh', '-c', 'env']  # print all env variables available to the pod
                                          # To change the name, instead of envFrom, use env:
       envFrom:                           # env:
-        - configMapRef:                  #   - name: partner-server-location
+        - configMapRef:                  #   - name: partner-server-location  # name of env variable
             name: singlevalue-map        #     valueFrom:
                                          #       configMapKeyRef:
                                          #         name: singlevalue-map
-                                         #         key: partner-url
+                                         #         key: partner-url           # name of key in configmap
 
 # kubectl --namespace configmap-test create configmap singlevalue-map --from-literal=partner-url=https://www.auppost.com.au
 # kubectl --namespace configmap-test create -f configmap-as-env.yaml
