@@ -1,3 +1,7 @@
+# Ignore keys/certificates
+*.key
+*.crt
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
