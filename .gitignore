@@ -1,3 +1,6 @@
+# DO NOT add comments on the file to ignore line. This does not work.
+# ex. **/.terraform/*  # a comment here will not enable this ignore
+
 # Ignore terraform binaries
 **/.terraform/*
 **/*.tfstate
