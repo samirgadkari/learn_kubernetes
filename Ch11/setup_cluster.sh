@@ -42,6 +42,6 @@ kops create secret --name $CLUSTER_NAME sshpublickey admin -i ~/.ssh/id_rsa.pub
 kops update cluster --name=$CLUSTER_NAME --yes
 
 # To check if the cluster is working properly:
-# kops validate cluster
-# To delete the cluster:
+# kops validate cluster 
+
 # kops delete cluster --name ${CLUSTER_NAME} --yes
