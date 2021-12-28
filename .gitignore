@@ -1,6 +1,6 @@
 # Ignore terraform binaries
-**/.terraform/*  # Ignore all provider binaries.
-**/*.tfstate        # Ignore all files used for planning by terraform.
+**/.terraform/*
+**/*.tfstate
 **/*.tfstate.*
 
 # Ignore keys/certificates
