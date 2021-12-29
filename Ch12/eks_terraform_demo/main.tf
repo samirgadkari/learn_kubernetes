@@ -8,7 +8,8 @@ resource "aws_s3_bucket" "my_bucket" {
 }
 
 # terraform init      # initialize terraform
-# terraform plan      # shows what it will provision
+# terraform plan      # shows what it will provision. + will be added, - will be removed,
+#		      # ~ will be modified in place.
 # terraform apply     # will proppse changes, and will give you a chance to accept them,
 #  		      # before provisioning those changes.
 # terraform destroy   # Remove all resources allocated from files in this directory.
